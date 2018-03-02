@@ -1,0 +1,55 @@
+
+
+
+----- Server Output ------
+
+pilot.cc.gatech.edu> java RoboComm.RoboComm
+RoboComm 0.9 (c)1998 Tucker Balch
+RoboComm.run: started on pilot.cc.gatech.edu
+Listening for connections on port 7462
+RoboComm: client 1 registered
+RoboComm: client 4 registered
+RoboComm: client 2 registered
+
+----- Client #1 ------
+
+pilot.cc.gatech.edu> java RoboComm.Client 1 
+TransceiverHard demonstration
+TransceiverHard: connected to RoboComm server as client 1
+sender: 0
+timestamp: 895720140727
+sender: 1
+timestamp: 895720140762
+string: Hello number one
+sender: 4
+timestamp: 895720178110
+string: Hello everyone!
+sender: 4
+timestamp: 895720178120
+string: Hello number one
+sender: 2
+timestamp: 895720208253
+string: Hello everyone!
+sender: 2
+timestamp: 895720208265
+string: Hello number one
+
+------ Client #2 ------
+
+pilot.cc.gatech.edu> java RoboComm.Client 2
+TransceiverHard demonstration
+TransceiverHard: connected to RoboComm server as client 2
+sender: 0
+timestamp: 895720208199
+
+----- Client #4 -----
+
+tinman.cc.gatech.edu> java RoboComm.Client 4 pilot.cc.gatech.edu
+TransceiverHard demonstration
+TransceiverHard: connected to RoboComm server as client 4
+sender: 0
+timestamp: 895720178073
+sender: 2
+timestamp: 895720208253
+string: Hello everyone!
+

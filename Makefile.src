@@ -1,0 +1,91 @@
+#
+# $RCSfile: Makefile.src,v $
+# $Revision: 1.15 $
+# $Date: 2000/03/08 17:53:29 $
+# $Locker:  $
+#  author: Tucker Balch
+#
+
+#The home directory of TeamBots
+TBDIR   =/afs/cs.cmu.edu/project/teambots/repository
+
+#Where we are now
+PWD     = $(shell pwd)
+
+.PHONY: $(SUBDIRS) clean all RCS
+
+CLASSFILES = $(JAVAFILES:.java=.class)
+
+%.class : %.java
+	javac $^
+
+all:: $(SUBDIRS) $(CLASSFILES)
+
+$(SUBDIRS):
+	(cd $@; $(MAKE) all)
+
+checkout:
+	@co -q RCS/*,v
+	@for i in $(SUBDIRS); do\
+	   (cd $$i; $(MAKE) checkout); \
+	done
+
+checkin:
+	@ci RCS/*,v *.java *.c $(OTHERSRC) Makefile
+	@co Makefile
+	@for i in $(SUBDIRS); do\
+	   (cd $$i; $(MAKE) checkin); \
+	done
+
+checkwho:
+	@rlog -L -h -l RCS/*
+	@for i in $(SUBDIRS); do\
+	   (cd $$i; $(MAKE) checkwho); \
+	done
+
+clean::
+	$(RM) -f *.class *.o *.bak *.log *.swp core lib?*
+	@for i in $(SUBDIRS); do\
+	   (cd $$i; $(MAKE) clean); \
+	done
+
+skeleton:
+ifeq ($(TBDIR),$(PWD))
+	@echo Do not do this in the repository $(TBDIR) !
+	@echo exiting
+	@exit -1
+else
+	@for i in $(SUBDIRS); do\
+	   (mkdir -p $$i; \
+		cd $$i; \
+		$(RM) -f RCS; \
+		ln -s $(TBDIR)/$(THISDIR)/$$i/RCS RCS; \
+		co Makefile; \
+		$(MAKE) skeleton); \
+	done
+endif
+ifdef THISDIR
+	echo $(THISDIR)
+	@$(RM) -f RCS
+	@ln -s $(TBDIR)/$(THISDIR)/RCS RCS
+else
+	@$(RM) -f RCS
+	@ln -s $(TBDIR)/RCS RCS
+endif
+
+RCSFix:
+	$(RM) -f RCS/RCS
+	@for i in $(SUBDIRS); do\
+	   (cd $$i; $(MAKE) RCSFix); \
+	done
+
+documentation::
+	@for i in $(SUBDIRS); do\
+	   (cd $$i; $(MAKE) documentation); \
+	done
+
+RCS:
+	mkdir -p RCS
+	make clean
+	ci *
+	co -q RCS/*,v

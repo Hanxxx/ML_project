@@ -1,0 +1,114 @@
+README.developer
+
+This information is intended primarily for TeamBots(tm) developers
+at CMU, but it may also be helpful for people developing TeamBots(tm)
+code in other locations.
+
+We are using RCS for revision control.  You should work on 
+all code in a local directory.  Within your local copy, you 
+will notice subdirectories named RCS.  These subdirectories 
+are actually links back to the "master" repository in 
+/afs/cs.cmu.edu/project/teambots/repository.  We all share 
+the same repository.
+
+Here is how to make your local version of TeamBots for editing,
+testing and revision.  Move to your home directory and execute
+the following commands:
+
+	mkdir tb
+	cd tb
+	cp /afs/cs.cmu.edu/project/teambots/repository/Makefile* .
+	make skeleton
+
+You should now have a local version of the directory structure
+with a link in each directory pointing to the "real" RCS directory
+in the TeamBots repository.  
+
+Next you need to set your CLASSPATH and pointers to libraries.
+Add the following to your .cshrc (or .profile) in your home directory:
+
+	setenv CLASSPATH /home/you/tb/src:.
+	setenv CLASSPATH ${CLASSPATH}:/home/you/tb/lib/collections.jar
+	setenv CLASSPATH ${CLASSPATH}:/home/you/tb/lib/Serialio/Serialio.jar
+	setenv CLASSPATH ${CLASSPATH}:/home/you/tb/lib/Serialio/jspComm.jar
+	setenv LD_LIBRARY_PATH /home/you/tb/lib/Serialio/Lib/Linux 
+
+Now, to check out a copy of everything and compile it:
+
+	make -i checkout
+	make all
+
+You should now be able to run the demos in the Domains directory.
+
+Helpful commands for the TeamBots developer:
+
+   co filename
+      Check out the file filename.  The file will be write 
+      protected.
+
+   co -l filename
+      Check out the file filename.  The file is locked for your
+      exclusive use, no one else can check it out for writing.
+
+   ci filename
+      Check the file back in (you should be sure to test it first).
+      RCS will ask you for an explanation of the change you made.
+      DO NOT CHECK IN UNTESTED CODE!
+
+   make all
+      Compile all source code (automatic recursion to subdirs).
+
+   make teambots
+      Makes a TeamBots distribution zipping all the relevant files.
+      In preparation for this you should
+         edit index.html and Docs/release.html
+         also edit EDU/gatech/cc/is/util/TBVersion.java
+         make -i checkin
+         make -i checkout
+         make clean
+         make all
+         make documentation
+         test *all* the demos
+
+   make publish
+         copies TeamBots.zip to the proper directory and unzips it
+         for the www.
+
+   make documentation
+      Compiles documentation (using javadoc) for java source
+
+   make clean
+      Remove everything but source code (automatic recursion).
+
+   make -i checkout
+      Check out all files (auto recurse).  This will ensure you
+      have the latest copy of everything in your local directory.
+
+   make -i checkin
+      Will check in all files you have checked out (auto recurse).
+      DO NOT CHECK IN UNTESTED CODE!
+
+   make checkwho
+      Prints a list of who has which files checked out (auto recurse).
+
+
+To add a new directory to the tree:
+
+   cd /afs/cs.cmu.edu/project/teambots/repository/...
+   mkdir newdir
+   co -l Makefile
+   add "newdir" to the list of SUBDIRS
+   ci Makefile
+   co Makefile
+   make -i checkin
+   cd newdir
+   add your new files to the dir
+   copy a Makefile from a sibling directory (e.g. ../sibling/Makefile)
+   edit the Makefile; revise THISDIR to be correct
+   make -i RCS
+
+To ensure you have a correct copy of the directory tree
+
+   make -i checkin
+   make -i checkout
+   make -i skeleton

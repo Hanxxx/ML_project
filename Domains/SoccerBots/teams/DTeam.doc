@@ -1,0 +1,210 @@
+David H. Johnson
+Simulated Robot Soccer Assignment
+4/16/98
+
+
+THE TASK
+
+The purpose of this assignment is to create an intelligent soccer team.  The
+teams must be executable in either the JavaSoccer or ASCIISoccer simulation
+environments.  Information for these packages can be found at their respective
+sites:
+
+http://www.cc.gatech.edu/grads/b/Tucker.Balch/JavaBots/EDU/gatech/cc/is/docs/index.html
+
+and
+
+http://www.cc.gatech.edu/grads/b/Tucker.Balch/soccer/
+
+The soccer players must posses some intelligence in order to play a good game
+of soccer, and this intelligence can be implemented in several ways.  The
+players can be either homogeneous (ie the SchemaDemo team) or heterogenous
+(ie the BasicTeam).  On a homogeneous team, each member is attempting to do
+the same thing, only from a different perspective (ie different sensor 
+readings).  Whereas with a heterogenous team each member is programmed to do
+a specific task and work together as a team.  I chose a heterogenous approach
+to the team.
+
+The individual team members can be classified by what type of intelligent agent
+they are:  Reflexive, State-Based, or Goal-Oriented.  These are the three
+basic intelligent agent types introduced in Russell and Norvig's _Artificial
+Intelligence:  A Modern Approach_.  The reflexive agent is one that takes 
+sensory input and reacts directly on that input.  Each time it receives new
+input it responds without any reference goals or previous experience.  Slightly
+more complex than reflex agents are state-based agents.  These have previous
+state knowledge such as "i was just trying to intercept a pass" and use this
+knowledge along with the current sensor input and a world model to choose an
+action to take.  The final agent type is goal-oriented.  Goal-oriented agents
+have a specific goal to accomplish, and attempt to predict the effects of 
+possible actions to determine which action is most useful for reaching
+the goal.  My team members are reflexive agents.
+
+A final classification of intelligent agents is whether or not they learn.
+The intelligence can be hard-coded (through heuristics) or they can learn from
+previous experiences.  The robots for this assignment do not learn.  They have
+hard-coded heuristics.
+
+Reflexive, heuristic, and heterogenous robots were chosen to hopefully show
+that relatively dumb robots working together can perform well.
+
+
+IMPLEMENTATION
+
+Global variables as listed in the code are values determined at the beginning
+of each simulation step.  Except for Dec2 move which is used to determine
+where to move after each step, and boolean kickit which is true if the robot
+wants to try to kick the ball.  The constants, SIDE and ME are set in the
+Configuration() method of each robot.
+
+The team members are unique in the role they play on the team and are
+determined by their robot ID.  They are:
+Goalie, Offside, Designated Driver, Backup, and Center.
+
+   - Goalie -
+
+The goalie is responsible for keeping itself between the ball and the goal
+at all times.  The goalie must also deflect a ball if it is dangerously close
+to the goal.  If the goalie is too far from the goal, or outside the width
+of the goal, it will return to the center as quickly as possible.  Otherwise
+it will try to keep the ball from going north or south along the y axis.  It
+stops when the ball is sufficiently close to its x-axis to avoid moving past the
+ball.  The goalie moves toward the wall of the goal at all times.  If the ball
+is behind the goalie the goalie will chase it down and kick it out as quickly
+as possible.  All the code for this is contained in a single function, 
+play_goalie(), which needs no helpers.
+
+   - Offside -
+
+This player targets the opponent who is closest to the opponents goal.  Once
+the opponent is targeted "Offside" calculates and goes directly toward the
+point directly behind the opponent toward his goal.  On the way to this point
+"Offside" avoids collision with any players other than the target.  Offside
+serves two purposes.  One is to serve as a blocker to keep the target from
+rushing an incoming teammate driving to score.  Another is to effectively
+combat the traditional goalie.  Two important functions are introduced in
+this player's logic.
+
+1) Vec2 closest_to( Vec2 point, Vec2[] objects)
+
+	Returns which of the objects is closest to a given point.  The distance
+	values are calculated using basic vector arithmetic.  In this case it
+	is used to determine which opponent is closest to the opponents goal.
+	It is also used to calculate which teammate is closest to the ball, 
+	which teammate is closest to the robot, and which opponent is closest 
+	to the robot.
+
+2) void avoidcollision()
+
+	This is more like a get out of the way if you've collided.  If you
+	are close enough to a teammate or enemy, then turn in the opposite
+	direction.  This is not used when in control of the ball (driving to
+	the goal) or by the goalie.
+
+   - Designated Driver -
+
+The Designated Driver tries to continually drive the ball.  Using the function
+drive_ball().
+
+void drive_ball()
+	If the robot is behind the ball with respect to the goal (ie a line
+	can be drawn from the robot to the goal nearly passing through the
+	ball) and the ball is fairly close, then move toward the goal.  If
+	the robot can move toward the goal and is relatively close to the goal
+	then try to kick the ball.  If you aren't behind the ball, then
+	get behind the ball, and avoid collision while trying.
+
+drive_ball() uses two functions behind_point() and get_behind():
+
+boolean behind_point( Vec2 point, Vec2 orient)
+	Determines if you are behind a point and oriented toward another point.
+	This is determined by calculating how much difference there is in
+	the angle of the point and the angle of the orientation.  If you are
+	directly behind the point there should be no difference, but a little
+	leeway is given.
+
+void get_behind( Vec2 point, Vec2 orient)
+	Attempts to move behind a point with respect to an orientation point.
+	The robot wants the point between itself and the orientation.  To
+	see how this is calculated picture a line from the orientation through
+	the point, and line from the robot through the point.  Where these
+	lines emerge an angle, theta is formed.  If the cosine of the angle
+	is positive you are in front of the point, if it is negative you are
+	behind the point.  If you are behind the point, then the sine of theta
+	will be positive if you are to the left of the point, and negative
+	if you are to the right.  Also calculate a vector from the point away
+	from the orientation to the point you would ideally like to go.  If
+	you are behind the point, go strait there.  If you are behind the
+	point and on the left or right, then rotate the behind vector 90
+	degrees left or right to head around the point.  Calculating theta
+	and the behind vector are trivial matters.
+
+   - Backup - 
+
+This robot calculates a spot three robot radii from the ball towards his own
+side and tries to get behind it with respect to the opponents goal.  If 
+"Backup" is the closest robot to the ball it will try to drive the ball.  This
+serves as a backup for the designated driver, hence the name "Backup".
+
+   - Center -
+
+This robot tries to get behind the center of the field and the opponent's goal.
+If it is the closest robot to the ball then it tries to drive the ball.  The
+main purpose of this robot is to sit at center field and wait for the fast
+break to come.  At first I was a little queasy about implementing this robot.
+But decided that 1) Prof. Atkeson specifically said there were no rules, and
+2) this is a reflexive robot.  Because reflexive robots are dumb they have
+to do everything they can to take advantage of their environment.  This is
+the way animals survive with natural selection.  They take advantage of the
+environment, and if they don't, they die.  So the center is doing what
+it can to take advantage of the environment for the benefit of the team.
+
+
+PERFORMANCE/IMPROVEMENTS
+
+Of course the DTeam consistently beats all of the stock teams, including 
+Brian McNamara's well designed team.  This can be expected from most new teams 
+considering the major testing most teams will do is going to be against the
+stock teams.  I created another team, called Team-Brick.  The name describes
+their functionality, as they just stay in their start position.  Every one
+of the stock teams stalled the game after at most one shot was taken.  Where
+the lineup put Team-Brick near the ball.  The other teams couldn't keep from
+running into each other getting to the ball, or were programmed to stay too
+far away from opponents to get to the ball.  The small, but effective collision
+avoidance method should help DTeam perform well.  I believe the reason 
+collision detection effective is that the simulation is so dynamic.  Most
+every obstacle is moving so a slight push away from a collision gives freedom
+from the obstacle.  And after you have freedom from the obstacle your new
+heading is probably changed as well, meaning you probably won't bump into the
+obstacle again, unless you are heading for the same place (ie behind the
+ball).  Nevertheless the collision avoidance was quite sufficient to get the
+offsides man back to the goalie quickly.
+
+However, by no means is DTeam perfect.  There are several things I would like
+to change and improve with the DTeam.  First the get_behind() function could
+be improved.  The way it works now, it is practically a planning mechanism.  
+Although a primitive one.  The robots have to do too much calculating to
+get behind an object.  Using the goalie, and "offside" along with three
+SchemaDemo (or BrianTeam) members would be more effective.  The idea of a
+homogeneous goal striking team is appealing.  I would have liked to look at
+Clay more.  It would be nice to have two specialized players and a 3 robot
+striking team that could be trained with Schema weights.  The get_behind()
+and behind_point functions are good because they can be reused to improve
+the team, along with a function that I wrote, but didn't integrate called
+nearpath().  Nearpath() finds the closest to the path from you to a goal.  If
+nearpath() found that there was something blocking your shot you could set
+up to get behind the ball toward a teammate for a pass.  However, this may 
+diminish the effectiveness of driving the ball.  
+
+Another thing you could do is just check to see if you were ever behind_point()
+the ball relative to a teammate for a pass.  Kicking is always better than 
+dribbling because the ball moves faster and can shake the opponents.  The only
+problem would be that unless the team was completely homogeneous you would need
+some sort of communications between robots to make sure you don't pass
+it to the goalie or the "offside".  The communication might take too long for
+it to be effective.  The robots in soccer have to react immediately to carry
+out a strategy.
+
+
+CREDITS
+
+I used the BasicTeam.java skeleton to create a heterogenous team.

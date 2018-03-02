@@ -1,0 +1,406 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>
+SoccerBots
+</title>
+</head>
+
+<body BGCOLOR="#FFFFFF">
+
+<FONT FACE="ariel,helvetica">
+
+<BR>
+
+<H2>TeamBots<SUP><font size=-3>TM</font></SUP> Domain: SoccerBots</H2>
+
+<b>Welcome</b><br>
+<UL>
+Welcome to the SoccerBots information page.
+This documentation is also included with the SoccerBots and TeamBots(tm) 
+distribution in
+SoccerBots/docs/index.html.
+<P>
+As SoccerBots is part of TeamBots(tm), it
+is freely distributable for noncommercial use
+Please see the <A HREF="../../Docs/copyright.html">copyright</A> 
+for detailed copyright information.
+<P>
+SoccerBots simulates the dynamics and dimensions of
+a regulation
+<A HREF="http://www.csl.sony.co.jp/person/kitano/RoboCup/RoboCup.html">
+RoboCup</A> <A HREF="Docs/small.html">
+small size robot league</A> game.  
+Two teams of five robots compete on
+a ping-pong table by pushing and kicking an orange golf ball 
+into the opponent's goal.
+</UL>
+<P>
+<b>Contents</b><BR>
+	<UL>
+	<LI><A HREF="#INTRODUCTION">Introduction</A>
+	<LI><A HREF="#INSTALLING">How to install</A>
+	<LI><A HREF="#RULES">SoccerBots rules</A>
+	<LI><A HREF="#HOWITWORKS">How SoccerBots works</A>
+	<LI><A HREF="#CAPABILITIES">Capabilities of a SoccerBots robot</A>
+	<LI><A HREF="#YOUROWN">Developing your own soccer team</A>
+	<LI><A HREF="#FUTURE">Future directions</A>
+	</UL>
+<P>
+<CENTER>
+<img src="../../Docs/images/soccer.jpg" WIDTH=50%>
+<BR>
+A SoccerBots kickoff.
+</CENTER>
+
+<A NAME="INTRODUCTION"></A>
+<b>Introduction</b><BR>
+<UL>
+
+SoccerBots is part of the TeamBots(tm) software distribution which
+is composed of two Java applications and 
+several Java packages targeted for mobile robotics research.  
+If you are interested in the other software in the TeamBots(tm)
+distribution, consult the 
+<A HREF="../../index.html">TeamBots(tm)</A> documentation.
+
+<P>
+
+SoccerBots runs in the TBSim application using a configuration
+file that tailors it for soccer games.  Other types of robots and
+tasks can also be simulated in TBSim, including the
+Nomadic Technologies' Nomad 150 robots Georgia Tech is using
+to compete in the AAAI-97 mobile robot contest.  The same control
+systems that run in simulation can also operate real robot
+hardware using the TBHard application.  At present, this capability
+is limited to Nomad 150s.
+
+<P>
+
+While no significant bugs are known to exist,
+this is research software and it is subject to 
+change. 
+
+<P>
+
+Finally, SoccerBots was developed separately and is distinct from 
+<A HREF="http://ci.etl.go.jp/~noda">
+Itsuki Noda's 
+</A>
+<A HREF="http://ci.etl.go.jp/~noda/soccer/server.html">
+SoccerServer  
+</A>
+I'd like to thank Itsuki for providing
+an excellent example of how to build a great soccer simulation.
+Thanks are also due to 
+<A HREF="http://www.cs.cmu.edu/~pstone/pstone-home.html">Peter Stone</A>
+and 
+<A HREF="http://www.csl.sony.co.jp/person/kitano/">Hiroaki Kitano</A>
+for their advice in this endeavor.
+</UL>
+
+<P>
+<A NAME="INSTALLING"></A>
+<b>How to install SoccerBots</b><BR>
+<UL>
+
+SoccerBots is part of the TeamBots(tm) distribution.  When you install
+TeamBots(tm) you automatically get SoccerBots.  Please consult the 
+<A HREF="../../index.html#INSTALLING">TeamBots(tm)
+installation instructions</A>.
+
+</UL>
+
+<b>About the demo</b><BR>
+<UL>
+
+By typing "demo" you execute the command line "java TBSim robocup.dsc 511 300".   This starts TBSim and tells it to read environmental information
+from the robocup.dsc description file, and to set up a 511x300 pixel display
+area for the simulation.  You can use a larger or smaller area if you like, 
+but keep the 511/300 ratio as that is the aspect ratio of the soccer
+field.
+<P>
+The default demonstration runs the SchemaDemo team against the 
+BasicTeam.  Neither team is really very good (I hope to develop
+better teams soon), but they illustrate the capabilities of the
+simulator fairly well.
+</UL>
+
+
+<P>
+<A NAME="RULES"></A>
+<b>SoccerBots rules and dynamics</b><BR>
+<UL>
+
+These rules are drawn primarily from RoboCup's 
+<A HREF="Docs/small.html">regulations for small size robot league</A>
+with differences noted.
+<P>
+<B>Field dimensions</B><BR>
+The field is 152.5cm by 274cm.  Each goal is 50cm wide.
+The defense zone, centered on the goal, is 100cm wide by 22.5cm deep.
+In the coordinate system used in the
+simulation, the center of the field is (0,0) with +x to the right
+(east) and +y up (north).   The team that starts on the left side
+is called the "west" team and the team on the right is called
+the "east" team.
+<P>
+<B>Robots</B><BR>
+Robots are circular and 12cm in diameter.  In RoboCup 15cm is the
+maximum size.  The simulated robots can move at 0.3 meters/sec and
+turn at 360 degrees/sec. (I would like to base these numbers
+on real soccer robot specifications, please send them to me if 
+you know them).
+<P>
+<B>Team</B><BR>
+A team consists of no more than 5 robots.
+<P>
+<B>Ball</B><BR>
+The simulated ball represents an orange golf ball.
+It is 40mm in diameter and it can move at a maximum
+of 0.5 meters/sec when kicked.  It declerates at 0.1 meters/sec/sec.
+Ball collisions with walls and robots are perfectly elastic.
+(If anyone has real measured numbers for these parameters, 
+please send them to me!).
+<P>
+<B>Coloring</B><BR>
+Coloring of the field doesn't really matter in the simulation, 
+but the image drawn on your screen matches the RoboCup regulations.
+<P>
+<B>Length of the game</B><BR>
+For now, once the game starts, it runs forever.  This will soon be changed
+to conform to the rules of RoboCup: two 10 minute halves.
+<P>
+<B>Wall</B><BR>
+A wall is placed around all the field, except the goals.  Ball collisions
+with walls are perfectly elastic.  Robots may "slide" along walls if
+they aren't headed directly into them.
+<P>
+<B>Defense zone</B><BR>
+A defense zone surrounds the goal on each side.  It is 22.5cm from
+the goal line and 100cm wide.  Only one defense robot can enter
+this area. Note: this is not enforced by SoccerBots, but it will
+be eventually.
+<P>
+<B>Robot marking</B><BR>
+Robots are marked with a two-color checkerboard pattern.  In RoboCup
+rules they are marked with two colored ping-pong balls.
+<P>
+<B>Communication</B><BR>
+There is presently no facility for robot to robot communication, but
+this may be added if people are interested in it.
+<P>
+<B>Goal keepers</B><BR>
+At present, the goal keeper has no means for grasping the ball.  The
+system may be improved later to allow for this.
+<P>
+<B>Kick-off/Restart/Stop</B><BR>
+Kick-off, restart and stop of the game are managed automatically.
+The west team gets to kick-off fist, with subsequent kick-offs
+made by the scored-against team.
+<P>
+<B>Robot positions at kick-off</B><BR>
+The robots are automatically positioned as shown below at kick-off.
+The numbers indicate values returned by the getPlayerNumber method.
+<PRE>
+kick-off                         receive
+                   |
+                 2 | 2 
+                   |      1
+ 0         1     3 o                   0
+                   |      3
+                 4 | 4
+</PRE>
+Specific positions are not specified in the RoboCup rules, except that
+only the kick-off team can be within 15cm of the ball.
+<P>
+<B>Fouls/Charging</B><BR>
+Currently no fouls are enforced by SoccerBots.  There is
+however a "shot clock."  At the
+begining of a point, the clock is set to countdown from
+60 seconds.  If no score occurs in that time, the
+ball is returned to the center of the field.
+The ball is also returned ot the center if it gets stuck for
+a period of time.
+<P>
+Those types of fouls
+that can be evaluated objectively by the running program will 
+eventually be added.  RoboCup enforces several fouls and charging
+violations.
+</UL>
+
+<P>
+<A NAME="HOWITWORKS"></A>
+<UL>
+<b>How SoccerBots works</b><BR>
+
+<B>The description file</B><BR>
+As mentioned earlier, SoccerBots runs under the TBSim simulator.
+At runtime, TBSim reads in a description file that tells it
+what sorts of objects will be in the present simulation and where
+they should appear in the environment.  
+Obstacles, small soccer robots,
+Nomad 150 robots, golf balls and squiggle balls have all been 
+implemented to date. 
+You don't really need
+to worry about the description file for now because one appropriate to the
+soccer simulation comes with the distribution in the SoccerBots
+directory 
+(<A HREF="teams/robocup.dsc">robocup.dsc</A>).  
+But you will need to make some simple 
+modifications to it if you want to compete with your own team
+or change the colors of the robots.
+<P>
+<B>The simulation kernel</B><BR>
+Each object in the simulation includes two important components:
+1) a drawing method and 2) a dynamics simulation method.  
+The simulation kernel, or core, runs in a loop calling the two methods
+for all the objects in the simulation at each step.
+It also keeps track of time, and passes elapsed time to the
+dynamics methods, so they knows how far to move their associated 
+simulated objects.
+The simulation can run in real-time or faster or
+slower than real-time according to how the <B>time</B> variable
+is set in the description file.
+<P>
+<B>Robot control systems</B><BR>
+In addition to the drawing and dynamics methods, robots 
+have a control system object that considers sensor inputs and makes
+actuator outputs.  The control system is what you need to
+modify if you want experiment with different soccer strategies.
+The control system has no way of knowing whether it is running
+in a simulation or on real robot hardware.  This is convenient
+because you don't need to modify your control software between
+simulation and real runs.  Unfortunately, the capability
+for running small soccer robot control systems on real hardware 
+is not available yet, but you can develop and run systems for Nomad 150
+robots if you like (they don't quite fit on a ping-pong table!).
+</UL>
+
+<P>
+<A NAME="CAPABILITIES"></A>
+<b>Capabilities of a SoccerBots robot</b><BR>
+<UL>
+
+The interface between the robot's control system or "brain," 
+and its sensors and actuators is provided by the API called
+SocSmall, a Java class.  The most complete description of
+the interface is provided by the javadoc-generated
+documentation for 
+<A HREF="../../Docs/EDU.gatech.cc.is.abstractrobot.SocSmall.html">
+SocSmall</A>, and SocSmall's parent class
+<A HREF="../../Docs/EDU.gatech.cc.is.abstractrobot.Simple.html">
+Simple</A>.  A synopis is provided here:
+
+<P>
+<B>Sensors</B>
+<UL>
+<LI>Detect whether the robot is in a position to kick the ball. 
+<LI>Get a vector pointing to the ball.
+<LI>Get a vector pointing to the team's goal.
+<LI>Get a vector pointing to the opponents' goal.
+<LI>Get an array of vectors pointing to all the other players.
+<LI>Get an array of vectors pointing just to the robot's teammates.
+<LI>Get an array of vectors pointing just to the robot's opponents.
+<LI>Get the player's number on the team (0 - 4),  0 is the goalie.
+<LI>Get the player's position on the field.
+<LI>Get the player's heading.
+<LI>Get the time in milliseconds since the game started.
+</UL>
+<B>Actuators</B>
+<UL>
+<LI>Kick the ball at 0.5 meters/sec.
+<LI>Push the ball by driving over it.
+<LI>Set desired heading. The robot can turn at 360 degrees/sec.
+<LI>Set desired speed, up to 0.3 meters/sec.
+</UL>
+</UL>
+
+<P>
+<A NAME="YOUROWN"></A>
+<b>Developing your own soccer team</b><BR>
+<UL>
+
+<B>Overview</B><BR>
+To build your own team you need to 1) extend the ControlSystemSS class
+to define your team strategy and 2) edit the robocup.dsc file so
+that TBSim will load your team instead of the default teams 
+(and to adjust the colors of the robots to your liking).  
+The robocup.dsc file is verbosely commented, so #2 is easy.
+<P>
+<B>Copy an existing team!</B><BR>
+The easiest way to accomplish #1 is to make a copy
+of one of the existing teams in the SoccerBots/teams directory.
+Some of these teams were developed using 
+<A HREF="../../EDU/gatech/cc/is/clay/index.html">Clay</A>, a
+behavior-based configuration system.  You are welcome to use
+Clay for your own purposes, but this is not necessary.
+If you don't want to use Clay, start with one of the example teams
+that don't import the EDU.gatech.cc.is.clay package.
+<P>
+If you look at one of the teams, you will notice two methods
+are implemented: Configure() and TakeStep().  Configure is called
+once at set-up time to allow you to do whatever initialization you
+need.  TakeStep() is called repeatedly by the simulation kernel
+to allow you to read sensors and select actions.
+Senors are read by calls to the abstract_robot.get* methods,
+actuator commands are sent by calls to abstract_robot.set* methods.
+<P>
+Sensor example: 
+<PRE>abstract_robot.getBall(curr_time)</PRE> 
+reads the ball sensor
+and returns a 2-dimensional vector towards it.  The curr_time
+parameter is a timestamp that helps prevent redundant sensor accesses
+(this is more important for use on real robots than in simulation).
+<P>
+Actuator example: 
+<PRE>abstract_robot.setSteerHeading(curr_time,0)</PRE>
+will point the robot east.
+Look at the example teams for more clues on the other sensor and
+actuator methods.
+<P>
+<B>Compiling</B><BR>
+As the name SoccerBots implies, the software is written in Java.  Standard
+Java coding practices and conventions apply.  We have compiled and run
+all the software on Linux, Solaris and Irix.
+<P>
+To make compiling with dependencies a little easier, the distribution 
+includes a gmake-based Makefile with the following functionality:
+
+<UL>
+
+<LI><B>make all </B>   To compile all Java.  This is may not even
+                       necessary since the distribution includes
+                       Java 1.1 binaries.
+
+<LI><B> make clean </B> To remove all junk not necessary to run programs.
+
+<LI><B> make veryclean </B> To remove every thing not necessary to compile.
+
+<LI><B> make documentation </B> To javadoc-ify
+
+</UL>
+
+You will need to edit the make file so that it will compile your
+files.
+We'd like to include any teams you develop in future releases of
+SoccerBots, but please be sure to adhere to good programming practices!
+</UL>
+
+<P>
+<A NAME="FUTURE"></A>
+<b>Future directions</b><BR>
+<UL>
+The following items are on the to do list:
+<UL>
+<LI>Make improvements in the direction of closer conformance to
+	the RoboCup regulations as mentioned in the Rules section.
+<LI>Set robot and ball dynamics parameters to match real data
+	(please send it if you have it).
+<LI>Seek input from the RoboCup community for other improvements.
+<LI>Add features like robot position traces and player number display.
+</UL>
+Please contribute by sending me your suggestions! (trb@cs.cmu.edu).
+</UL>
+</body>
+</html>

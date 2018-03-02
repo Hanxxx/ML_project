@@ -1,0 +1,20 @@
+trb 4 Nov 99	mechanics of soccer robots
+trb 4 Nov 99	mechanics of ball
+trb 4 Nov 99	fixed steps
+trb 4 Nov 99	round-robin scheduling
+trb 4 Nov 99	fix demo.bats for windows 
+trb 4 Nov 99	sensor noise
+trb 4 Nov 99	Util directory
+trb 4 Nov 99	class soccer teams
+trb 4 Nov 99	add documentation for Domains directory
+trb 4 Nov 99	build viewer/logger
+trb 5 Nov 99	add formation demo
+trb 8 Nov 99	add dictionary
+trb 13 Nov 99	edit java files in packages to check for copyright and 
+		conformity
+trb 14 Nov 99	add "iconic" keyword to dsc files
+trb 14 Nov 99	add "trails" keyword to dsc files
+trb 14 Nov 99	add "state" keyword to dsc files
+trb 31 Mar 00   fix race condition
+trb 31 Mar 00   fix learning compile
+trb 31 Mar 00   integrate anders scout code

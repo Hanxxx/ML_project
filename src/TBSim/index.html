@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>
+TBSim
+</title>
+</head>
+<body BGCOLOR="#FFFFFF">
+
+<FONT FACE="ariel,helvetica">
+
+<BR>
+
+<H2>TeamBots<SUP><font size=-3>TM</font></SUP> Application: TBSim</H2>
+
+<b>Welcome</b>
+<UL>
+Welcome to the TBSim information page.
+This documentation is also included with the TeamBots(tm) distribution in
+TBSim/index.html
+<P>
+TBSim is freely distributable for noncommercial use
+Please see
+the <A HREF="../Docs/copyright.html">
+copyright</A> for details.
+<P>
+TBSim is used to test robot control systems that use 
+the 
+<A HREF="../Docs/Package-EDU.gatech.cc.is.abstractrobot.html">abstractrobots</A>
+API.  The same control systems can be run on robot hardware with
+the <A HREF="../TBHard/index.html">TBHard</A>
+application.
+<P>
+For an example of how TBSim can be used, take a look at 
+<A HREF="../Domains/SoccerBots/index.html">SoccerBots</A>.
+</UL>
+
+<b>Running TBSim</b>
+<UL>
+This documentation is rather skimpy right now.  We will be expanding
+it in the coming months.
+<P>
+First, ensure your CLASSPATH environment variable points to all 
+the right places.  Consult the 
+the "How to Install" section of the
+<A HREF="../index.html">TeamBots(tm)</A>
+page for details.
+<P>
+Now type the command line to start things running:
+<PRE>java TBSim [description file] [width] [height]</PRE>
+Here is an example from the SoccerBots demo:
+<PRE>java TBSim robocup.dsc 511 300</PRE>
+Or to run, but without graphics (this is faster):
+<PRE>java TBSimNoGraphics robocup.dsc</PRE>
+
+The description file is description of the environment
+in which the simulated robots will operate.  The height and width
+parameters are the size in pixels of the playing field on your
+display screen.
+
+<P>
+Here is an example <A HREF="../Domains/Forage/forage.dsc">description file</A>.
+</UL>
+
+</body>
+</html>

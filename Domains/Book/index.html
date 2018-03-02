@@ -1,0 +1,108 @@
+<html>
+<title>Exercises</title>
+<body bgcolor=#FFFFFF>
+
+
+<FONT FACE="ariel,helvetica">
+
+<BR>
+
+<H2>TeamBots<SUP><font size=-3>TM</font></SUP> Domain</H2>
+
+<B>Exercises from the book <I>Designing Robot Behavior</I></B> by Tucker Balch
+<P>
+<B>Chapter 2</B>
+<OL>
+	<B><LI></B> This exercise demonstrates how a few simple behaviors
+		may be combined to generate an effective navigational
+		strategy.  Move to the directory tb/Domains/Book,
+		run the exercise2.1 script.
+		You should see a picture like the one below appear
+		on your screen:
+		<P>
+		<IMG SRC="Docs/Images/exercise2.1a.gif" width=80%>
+		<P>
+		The black circle on the left is a robot, the
+		blue square on the right is a goal location
+		and the gray circles are obstcles.
+		<P>
+		There should also be another window named "Parameters"
+		with a few slider bars on your screen (it may be located
+		underneath the other window).  Locate this window,
+		it looks like this:
+		<P>
+		<IMG SRC="Docs/Images/exercise2.1b.gif">
+		<P>
+		Each slider represents the "gain" or importance of
+		a behavior.
+		<P>
+		<B>a.</B> Click the "Start" button on the Parameters window.
+		What happens?
+		<P>
+		<B>b.</B> What happens if you set the
+		slider bar for avoid obstacles to 0.0?  Try it,
+		but first click the "Reset" button.
+		<P>
+		<B>c.</B> Experiment with different values of the
+		gain for noise.  Describe the impact larger values
+		of noise have on the robot's navigation.
+	<P>
+	<B><LI></B> What if, instead of moving to a goal location,
+		we would like to have the robot search for something
+		by wandering around the environment?  Can that
+		be accomplished by changing the gains on the
+		behaviors in Excercise 1?  Which values work best?
+	<P>
+	<B><LI></B> This exercise will show you why noise is sometimes
+		an important component of a navigational strategy.
+		Move to the directory tb/Domains/Book and run the
+		exercise2.3 script.  You should see two windows
+		similar to the ones from exercise 1 above.
+		Instead of multiple obstacles, there is only
+		one; it is exactly between the robot and
+		the goal.
+		<P>
+		<B>a.</B> Set the noise gain to 0.0, then start the robot.
+		What happens?  Why?
+		<P>
+		<B>b.</B> Set the noise gain to 0.2, then click "Reset" and
+		then "Start."  What happens?  Why is the 
+		robot able to reach the goal?
+		<P>
+		<B>c.</B> What is the minimum value of noise that will
+		enable the robot to reach the goal?  What is the
+		maximum value of noise that will enable the robot to
+		reliably reach the goal?
+	<P>
+	<B><LI></B> In this exercise we will compare two strategies
+		for behavior combination: vector summation and
+		winner-take-all.
+		Move to the directory tb/Domains/Book,
+		and run the exercise2.4 script.
+		You should see a picture similar to the one
+		in exercise 1.
+		<P>
+		There should also be another window named "Parameters"
+		with a few slider bars on your screen (it may be located
+		underneath the other window).  In addition to the
+		sliders you have seen in Exercise 1, this window
+		includes buttons to set the combination operator
+		("winner-take-all" and "vector sum").
+		<P>
+		<B>a.</B> Click the "start" button on the Parameters window.
+		What happens?   The behavior should be similar to
+		what you saw in Exercise 1.
+		<P>
+		<B>b.</B> Reset the simulation (click the "reset" button),
+		then select the winner-take-all combination operator by
+		clicking on the "winner-take-all" button.  Now restart
+		the simulation.
+		What happens?   How does the robot's behavior differ
+		from when the vector sum combination operator is used?
+		<B>c.</B> If "winner-take-all" is selected,
+		what happens if you set the
+		slider bar for noise to be larger than the move-to-goal
+		gain? 
+	</UL>
+</body>
+</html>

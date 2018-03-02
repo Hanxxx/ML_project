@@ -1,0 +1,16 @@
+The demo program was written by Zia Khan (zkhan@cs.cmu.edu).
+
+To build the demo:
+
+make -f Makefile.demo 
+
+To run the demo:
+
+./demo
+
+If the demo program is running properly, you should see three images
+in the window.  The top image is the plain video feed, the middle
+image shows how the pixels are classified, the last image shows blob
+bounding boxes and centroids.
+
+The colors to be tracked are specified in the file colors.txt

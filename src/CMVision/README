@@ -1,0 +1,41 @@
+Software license is in the file LICENSE.
+
+To use this release of CMVision, you should first install 
+Video for Linux Two and ensure that it is working properly.
+V4L2 is available at http://webcys.diads.com/bdirks/v4l2.htm
+We have had good results using the Winnov Videum PCI card 
+for frame capture (about $129), but other cards supported by
+V4L2 should also work well.  A list of supported cards is
+available at: http://webcys.diads.com/bdirks/peopleprojects.htm
+
+To build and run the demo program:
+
+   1) make demo
+   2) ./demo
+   3) see the file README.demo for more information.
+
+To build CMVision as a shared library:
+
+   1) make native
+
+To use the JCMVision Java API to CMVision (note: this is still
+experimental):
+
+   1) Edit Makefile.src to reflect the location of your JDK 
+      installation.  If you aren't interested in the Java
+      API, you may need to revise the makefile to ignore the
+      references.
+
+   2) make header
+   
+   3) make native
+
+   4) set your LD_LIBRARY_PATH to point to the .so file.
+
+Look at the file cmvision.h for a definition of the C++ API.
+Look at JCMVision.java for a definition of the Java API.
+
+We are releasing this code without support.  We may be able to
+help you if you run into a problem, but we can't promise.
+Direct questions to jbruce@cs.cmu.edu, zkhan@cs.cmu.edu
+or trb@cs.cmu.edu.

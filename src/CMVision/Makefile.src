@@ -1,0 +1,30 @@
+CC = g++
+
+#
+# change below to point to your jdk installation
+#
+INCS = -I/usr/local/jdk.latest/include \
+	-I/usr/local/jdk.latest/include/linux \
+	-I/usr/include/X11
+CFLAGS = -O3
+SRC = demo.cc CMVWindow.cc capture.cc XWindow.cc cmvision.cc 
+LDFLAGS = -L/usr/X11R6/lib -lX11 
+OBJ = $(SRC:%.cc=%.o)
+.SUFFIXES: .cc
+
+.c.o: %.cc *.h
+	$(CC) $(CFLAGS) 
+
+native: vision
+
+header: 
+	javah -jni JCMVision
+
+vision:
+	$(CC) $(FLAGS) $(INCS) -shared jcmvision.cc capture.cc cmvision.cc -o libcmvision.so
+
+demo: $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $(OBJ) $(LDFLAGS)
+
+clean::
+	rm *.o ./demo

@@ -1,0 +1,2 @@
+cd teams
+java TBSim.TBSimNoGraphics robocupng.dsc

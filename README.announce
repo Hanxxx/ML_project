@@ -1,0 +1,71 @@
+http://www.cs.cmu.edu/~multirobotlab
+http://www.teambots.org
+
+
+The MultiRobot Lab at Carnegie Mellon is pleased to announce 
+the release of TeamBots 2.0e.
+
+TeamBots is a Java-based collection of application programs
+and Java packages for multiagent mobile robotics research.  
+The system supports prototyping, simulation and execution of 
+multirobot control systems.  Robot control systems developed 
+in TeamBots can run in simulation and on mobile robots, including 
+Probotic's Cye robot and Nomadic Technologies' Nomad 150 robot
+(a port to K-Team's Khepera is being pursued as well).
+
+Features:
+
+    o One of the most important features of the TeamBots 
+      environment is that it supports prototyping in simulation 
+      of the same control systems that can be run on mobile robots.
+
+    o Flexible simulation environment: TeamBots supports multiple 
+      heterogeneous robots running heterogeneous control systems. 
+      Complex (or simple) experimental environments can 
+      be designed with walls, roads, opponent agents, circular 
+      and square obstacles. All of these objects may be included in a 
+      simulation by editing an easily understandable human-readable 
+      description file. 
+
+    o Includes inter-robot communication package, RoboComm, that
+      provides broadcast, unicast or multicast of any Java data
+      structure.
+
+    o RoboCup soccer simulation: TeamBots includes a simulation of
+      RoboCup small-size league play, and a dozen example teams
+      developed by Georgia Tech and CMU students.
+
+    o Distribution is full source-code release.
+	
+    o Java: The simulation environment is 100% Java (execution on
+      some mobile robots requires low-level libraries in C, 
+      but Java is used for all higher-level functions).
+
+    o Money back guarantee!  The TeamBots software is freely
+      available for non-commercial use (commercial use requires
+      a license).
+
+Changes and additions since the last release:
+
+    o The directory tree has been restructured so that it works
+      better on Macs
+
+    o The prioritized sweeping learning algorithm has been added.
+
+Contributors:
+
+    Dr. Tucker Balch
+    Prof Manuela Veloso
+    Prof Ronald C Arkin
+    Jim Bruce
+    Brian Chemel
+    Rosemary Emery
+    Maria Hybinette
+    Scott Lenser
+    Juan Carlos Santamaria
+    John Sweeney
+    Will Uther
+
+Funding for the development of TeamBots has been provided by
+DARPA under contracts F30602-98-2-0135, DABT 63-99-1-0013,
+and also by Kitano Symbiotic and the RoboCup Federation.

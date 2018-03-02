@@ -1,0 +1,452 @@
+<html>
+<head><title>TeamBots(tm)</title></head>
+
+<body BGCOLOR="#FFFFFF">
+
+<FONT FACE="ariel,helvetica">
+
+<BR>
+
+<H2>TeamBots<SUP><font size=-3>TM</font></SUP> 2.0</H2>
+
+<B>Overview</B>
+<UL>
+The latest release is version 2.0e, built on 14 April 2000 
+	(<A HREF="TeamBots.zip">download</A>).
+<P>
+In this document:
+<UL>
+	<LI><A HREF="#INTRODUCTION">Introduction</A>
+	<LI><A HREF="#FEATURES">Key features</A>
+	<LI><A HREF="#EXAMPLES">Example domains</A>
+	<LI><A HREF="#APPLICATIONS">Application programs</A>
+	<LI><A HREF="#INSTALLING">How to install</A>
+	<LI><A HREF="#TROUBLESHOOTING">Troubleshooting</A>
+	<LI><A HREF="#DOCUMENTATION">Documentation</A>
+	<LI><A HREF="#CUSTOMIZATION">Compatibility and Customization</A>
+	<LI><A HREF="#HELP">Getting Help</A>
+	<LI><A HREF="#WEBSITE">Website</A>
+</UL>
+<P>
+Related information:
+<UL>
+	<LI><A HREF="Docs/credits.html">
+	Teambots
+	credits and acknowledgments.</A>
+	<LI><A HREF="Docs/users.html">TeamBots Users and Links</A>
+	<LI><A HREF="Docs/FAQ.html">The TeamBots FAQ</A>
+	<LI><A HREF="Docs/release.html">Release Notes</A>
+</UL>
+</UL>
+
+
+<A NAME="INTRODUCTION"></A>
+<B>Introduction</B>
+<UL>
+TeamBots is a Java-based collection of application programs
+and Java packages for multiagent mobile robotics research.  
+The TeamBots distribution is a <B>full source-code</B> release.
+The simulation environment is 100% Java. Execution on
+mobile robots sometimes requires low-level libraries
+in C, but Java is used for all higher-level functions.
+At present, TeamBots will run on the Nomadic Technologies'
+Nomad 150 robot and (very soon) on Personal Robotics' Cye robot.
+<P>
+TeamBots supports prototyping, simulation
+and execution of multirobot control systems.  Robot control systems
+developed in TeamBots can run in simulation using the 
+<A HREF="src/TBSim/index.html">TBSim</A> 
+simulation application, and on mobile robots using the 
+<A HREF="src/TBHard/index.html">TBHard</A>
+robot execution environment.  
+<P>
+This is the root page for all 
+TeamBots software.
+The complete documentation package is also included with the TeamBots
+distribution (this file is index.html in the root directory).
+</UL>
+
+<A NAME="COPYRIGHT"></A>
+<B>Software Copyright and Reuse</B>
+<UL>
+Provided proper acknowledgement is given, TeamBots may be used 
+freely for education and research.  Commercial use is permitted 
+provided the user does not profit from the TeamBots software itself. 
+Other uses are not permitted without written permission.  
+The "TeamBots" trademark is owned by Tucker Balch.
+Please see the <A HREF="Docs/copyright.html">copyright.html</A> 
+file for detailed copyright and trademark information.
+</UL>
+
+<A NAME="FEATURES"></A>
+<B>Features</B>
+<UL>
+One of the most important features of the 
+TeamBots 
+environment is that it supports prototyping in simulation of
+the <b>same</b> control systems that can be run on mobile robots.
+<P>
+<center>
+<table>
+<tr>
+	<td><center><img src=Docs/images/nomads.jpg HEIGHT=150></center></td>
+	<td><center><img src=Docs/images/forage.jpg HEIGHT=150></center></td>
+</tr>
+<tr>
+	<td valign=top>
+	<FONT FACE="ariel,helvetica">
+	<center><b>Real-time Control of Mobile Robots</B></center>
+	The TBHard application can be used to control
+	Nomadic Technologies' Nomad 150 robots.  These robots,
+	Lewis and Clark, won the multiagent "Find Life on Mars"
+	event at the AAAI-97 Mobile Robot Competition using 
+	TeamBots software.
+	Support for Probotic's Cye robot is under development.
+	</td>
+
+	<td valign=top>
+	<FONT FACE="ariel,helvetica">
+	<center><b>Simulation</B></center>
+	The same control systems can be tested in simulation and
+	run on mobile robots.  In this simulation
+	two Nomad 150 robots (black) forage 
+	for red and blue attractors, which
+	they collect and return to the color-coded bins.
+	They are running the same control system used on
+	Lewis and Clark.
+	</td>
+</tr>
+</table>
+</center>
+<P>
+The TeamBots simulation environment is extremely flexible.
+It supports multiple heterogeneous robot hardware running heterogeneous
+control systems.  Complex (or simple) experimental environments
+can be designed with walls, roads, opponent robots and circular
+obstacles.  All of these objects may be included in a simulation
+by editing an easily understandable human-readable description file.
+<P>
+Because the software is written in Java, it is extremely portable.
+TeamBots runs under Windows9x, Linux, MacOS and any other
+operating environment supporting Java 1.2 or later.
+<P>
+Concerns about Java: 
+some researchers are concerned that Java is too slow to support
+real time robot control.  Our experience contradicts this conclusion.
+As an example, in simulation (without graphics) our Java coded
+behavior-based control systems run at up to 30 KHz rates on conventional
+200 MHz Pentium machines.  The primary bottleneck to runtime efficiency on
+real robots is sensor and control I/O. On Nomad 150 robots for instance,
+we are limited to 10Hz control rates because this is the maximum rate
+control commands can be transmitted to the robot (control programs
+written in C cannot run any faster).
+In our experience the benefits of Java (correctness, ease of use,
+rapid development) far outweigh the negligible runtime overhead.
+</UL>
+
+<A NAME="EXAMPLES"></A>
+<B>Example Domains</B>
+<UL>
+The TeamBots distribution includes several example systems that
+can run in simulation.  They are included in the Domains subdirectory.
+<P>
+<UL>
+	<LI><A HREF="Domains/Cye/index.html">Cye</A>: 
+		this is a simulation of Probotic's Cye robot.
+	<LI><A HREF="Domains/SoccerBots/index.html">SoccerBots</A>: 
+		this is a simulation of RoboCup F-180 league soccer.
+	<LI><A HREF="Domains/Book/index.html">Book</A>: 
+		includes example exercises
+		being developed for the book <I>Designing Robot Behavior</I>
+		by Tucker Balch.  These are primarily for the illustration
+		of principles of behavior-based control.
+	<LI><A HREF="Domains/CTF/index.html">CTF</A>: an implementation
+		of Capture-The-Flag, a multiagent adversarial game.
+	<LI><A HREF="Domains/Forage/index.html">Forage</A>: a basic
+		implementation of multiagent foraging.
+	<LI><A HREF="Domains/ForageAAAI97/index.html">ForageAAAI97</A>: 
+		the actual source code used to win the AAAI-97 mobile
+		robot competition.
+	<LI><A HREF="Domains/Roads/index.html">Roads</A>: two example
+		uses of simulation environments including roads.
+		One example includes two different types of roads and
+		a bridge.  The other is an entire city map.
+		Any arbitrarily comples environment 
+		including different traversablility
+		constraints can be built.
+	<LI><A HREF="Domains/Walls/index.html">Walls</A>: an example
+		simulation environment with walls.
+</UL>
+</UL>
+
+<A NAME="APPLICATIONS"></A>
+<B>Application Programs</B>
+<UL>
+Four application programs are included in the TeamBots distribution:
+<P>
+<UL>
+	<LI><A HREF="src/TBSim/index.html">TBSim</A>: the TeamBots
+		simulator.
+	<LI><A HREF="src/TBHard/index.html">TBHard</A>: the real
+		robot execution
+		environment for control systems developed using
+		TeamBots.
+	<LI><A HREF="src/RoboComm/index.html">RoboComm</A>: 
+		RoboComm simplifies asynchronous robot 
+		to robot communication. Any Java object
+		can be sent from one robot to another.
+		The RoboComm server
+		forwards messages between agents.
+	<LI><A HREF="src/JCye/index.html">JCye</A>: 
+		These programs demonstrate how to use our Java
+		package to control a Cye robot.
+</UL>
+</UL>
+
+
+<A NAME="INSTALLING"></A>
+<B>How to Install TeamBots</B>
+<UL>
+
+Note: these instructions are the same as for installing SoccerBots.  If
+you install TeamBots, you have installed SoccerBots as well.
+If you are installing JCye, the instructions are a little bit different;
+go to the JCye <A HREF="src/JCye/index.html">installation instructions</A>.
+<P>
+
+<OL>
+<LI><B>Required software:</B> make sure you have
+        <A HREF="http://java.sun.com/products/jdk/1.2/index.html">
+        <b>Java 1.2</b></a>
+        or later installed on your computer.
+        The distribution will not run with earlier versions.
+        If you have Java, but aren't sure of the version, type
+        "java -version".  You also need
+        <b><A HREF="http://www.cdrom.com/pub/infozip/UnZip.html">unzip</b></A>
+        to unpack the distribution.
+        You will need <A HREF="http://www.gnu.org"><b>gmake</b></A>
+        if you want to modify and recompile using the included makefiles.
+<P>
+<LI><B>Make a directory for the distribution (we'll call it tb).</B>
+<P>
+<LI><B>Put the distribution (<A HREF="TeamBots.zip">TeamBots.zip</A>) in the directory.</B><P>
+<LI><B>unzip TeamBots.zip</B> .  Don't use the "-a" option, sometimes
+	unzip will confuse class files as text.  
+	If, later on you find the source looks garbled, try
+	'unzip -a TeamBots.zip "*.java"' to just unzip the source.
+	Not sure if Winzip
+	supports this (if you have trouble, get the real 
+        <b><A HREF="http://www.cdrom.com/pub/infozip/UnZip.html">unzip</b></A>).
+<P>
+<LI><B>Set your CLASSPATH environment variable</B> to point to
+        the directory where you unzipped the distribution.
+        So, for example, if you installed the distribution in
+        /home/you/java and you use csh you would set CLASSPATH with
+        the following commands:
+        <P>
+        <PRE>
+        setenv CLASSPATH /home/you/tb:.
+        setenv CLASSPATH ${CLASSPATH}:/home/you/tb/lib/collections.jar
+        </PRE>
+	<P>
+	Note the "." on the end.  This is important.
+        Other shells and/or operating systems use similar commands
+        to set the CLASSPATH. 
+	<P>
+	In Windows you can set the CLASSPATH by editing your
+	C:\AUTOEXEC.BAT file as follows:
+	<P>
+        <PRE>
+        SET CLASSPATH=C:\tb;C:\tb\lib\collections.jar:.
+        </PRE>
+        <P>
+	You will probably have to reboot your machine before this
+	command takes effect.
+<P>
+<LI><B>Run a few of the simulation demos.</B>
+        <PRE>
+        cd /home/you/java/SoccerBots
+        ./demo
+
+	cd /home/you/java/Cye
+	./demo
+
+	cd /home/you/java/Forage
+	./demo
+
+	cd /home/you/java/Roads
+	./citydemo
+        </PRE>
+</OL>
+</UL>
+
+<A NAME="TROUBLESHOOTING"></A>
+<B>Troubleshooting</B>
+<UL>
+	Before attempting to troubleshoot TeamBots, make sure
+	your computer is turned on.  If that does not solve the
+	problem, try this set of common solutions:
+<OL>
+
+<P>
+<LI>If you get the error message:
+<PRE>
+       Can't find class forage
+</PRE>
+or something similar when you try to run the demos, your
+CLASSPATH probably does not include "."
+Try Step 5 of the installation again.
+<P>
+<LI>If you get the error message:
+<PRE>
+       java.lang.NoClassDefFoundError: TBSim/SimulationCanvas
+               at TBSim.TBSim.<init>(TBSim.java:79)
+               at TBSim.TBSim.main(TBSim.java:199)
+</PRE>
+Your CLASSPATH may not point properly
+to the /home/you/java directory.
+Try Step 5 of the installation again.
+<P>
+<LI>If you get the error message:
+<PRE>
+       error:  zipfile probably corrupt
+</Pre>
+	while trying to unzip the distribution, you probably 
+	either got a bad copy while downloading, or your version
+	of unzip is too old.  
+	Unzip v5.12 works properly
+	while v5.1 has been known to complain, but still
+	unpack the distribution.
+	The distribution was compressed with Zip v2.1, please let me
+	know if you have this problem.
+<P>
+<LI>If you get the error message:
+<PRE>
+       Can't find class TBSim.TBSim
+</PRE>
+then your CLASSPATH probably doesn't point properly to the
+/home/you/java directory.  Try Step 5 of the installation again.
+
+<P>
+<LI>If you get the error message:
+<PRE>
+       Interface EDU.cmu.cs.coral.util.Collection of interface EDU.cmu.cs.coral.util.PriorityQueue not found.
+</PRE>
+You are using a version of the JDK older than 1.2.
+You can either: install 1.2, or edit the source code
+to reference the collections jarfile (comments in the code will help you).
+<P>
+<LI>If you get the error message:
+<PRE>
+       java.lang.NoClassDefFoundError: TBSim/SimulationCanvas
+               at TBSim.TBSim.<init>(TBSim.java:79)
+               at TBSim.TBSim.main(TBSim.java:199)
+</PRE>
+Your CLASSPATH may not point properly
+to the /home/you/java directory.
+Try Step 5 of the installation again.
+<P>
+This might also be caused by a corrupted download
+or unzip operation.  Try getting a new copy of the distribution from
+the webpage or just unzipping again.  You may have unzipped with the
+"-a" option, try it without.
+
+<P>
+<LI>If you get the error message:
+<PRE>
+       Unable to initialize threads: cannot find class java/lang/Thread
+</PRE>
+then you are probably running Java 1.0.2 instead of Java 1.2.  <BR>
+You can check that by typing "java -version".
+
+<P>
+<LI>If you get the error message:
+<PRE>
+       ./demo: java: not found
+</PRE>
+make sure java is in your PATH somewhere, and that Java 1.2 is installed
+on your system. 
+
+<P>
+<LI>If the program runs but the source code looks like gibberish,
+try unzipping again using the -a option (Step 4).  This option may
+not be available on older versions of unzip or on WinZip.  I suggest
+you get the
+<b><A HREF="http://www.cdrom.com/pub/infozip/UnZip.html">real unzip</b></A>.
+
+<P>
+<LI>Finally, try
+typing the contents of the demo file directly as a command line:
+<PRE>
+       java TBSim robocup.dsc 511 300
+</PRE>
+</OL>
+</UL>
+
+<A NAME="CUSTOMIZATION"></A>
+<B>Compatibility and Customization</B>
+<UL>
+Nearly all the software is written in Java.  Standard
+Java coding practices and conventions apply.  Our development environment
+is RedHat Linux, but we have compiled and tested the software on 
+Windows9x as well.
+<P>
+To make compiling with dependencies little easier, the distribution 
+includes a gmake-based Makefile with the following functionality:
+<P>
+
+<UL>
+
+<LI><B>make all </B>   To compile all Java.  This is may not even
+                       necessary since the distribution includes
+                       Java 1.2 binaries.
+
+<LI><B> make clean </B> To remove all junk not necessary to run programs.
+
+<LI><B> make documentation </B> To javadoc-ify
+
+</UL>
+<P>
+For more information on how to develop code for TeamBots, see
+the <A HREF="README.developer">README.developer</A> file.
+</UL>
+
+<A NAME="DOCUMENTATION"></A>
+<B>Documentation</B>
+<UL>
+Currently TeamBots is documented primarily using javadoc.  A
+more complete user guide is a future goal.
+Here are links to the javadoc-generated documentation:
+<P>
+<UL>
+	<LI><A HREF="Docs/index.html">All Packages</A> 
+	<LI><A HREF="src/TBSim/index.html">TBSim</A>
+	Simulation application in which <B>abstractrobots</B>
+	can operate and be evaluated.
+	<LI><A HREF="src/TBHard/index.html">TBHard</A>
+	Application in which <B>abstractrobots</B>
+	can operate in the real world.
+	<LI><A HREF="Domains/SoccerBots/index.html">SoccerBots</A> 
+	Specialized version of <b>TBSim</b> for RoboCup soccer.
+	<LI><A HREF="src/EDU/gatech/cc/is/clay/index.html">clay</A>
+	Behavioral configuration system.
+</UL>
+</UL>
+
+<A NAME="HELP"></A>
+<B>Getting Help</B>
+<UL>
+If you have any problems, send email to 
+<A HREF="mailto:trb@cs.cmu.edu">trb@cs.cmu.edu</a>
+and I'll see what I can do.
+<P>
+</UL>
+<A NAME="WEBSITE"></A>
+<B>Website</B>
+<UL>
+	The official TeamBots website address is 
+<A HREF="http://www.teambots.org">http://www.teambots.org</A>.
+</UL>
+</FONT>
+</body>
+</html>

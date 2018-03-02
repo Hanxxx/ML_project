@@ -1,0 +1,67 @@
+TeamBots Beta Release
+---------------------
+
+This is a beta release of TeamBots.
+
+TeamBots (c) 1999, 2000 by Tucker Balch, GTRC and Carnegie Mellon University
+Please see the file docs/copyright.html for detailed copyright information.
+
+
+To complete the installation
+----------------------------
+
+If you are reading this file, you have successfully downloaded and
+"unzipped" the distribution.  In the following discussion, we assume 
+you have installed TeamBots in the default "tb" directory.  
+
+To finish the installation, all you need to do is set your CLASSPATH.  
+On Unix operating systems this can be accomplished by adding something 
+like the following to your .cshrc file:
+
+   setenv CLASSPATH /yourdirectory/tb:.
+
+Or, if you use ksh or bash, in the .profile or .bashrc file:
+
+   export CLASSPATH=/yourdirectory/tb:.
+
+
+To run the demos
+----------------
+
+For the demostration of walls:
+   cd Domains/Walls
+   demo
+
+For the demostration of roads:
+   cd Domains/Roads
+   roaddemo
+
+For demo of a city with roads
+   cd Domains/Roads
+   citydemo
+   // note: in order to see the robots (normally drawn to scale, and thus
+   // very small) select view|icons
+
+For a demo of foraging robots
+   cd Domains/Forage
+   demo
+
+To run the same code we used to win the AAAI-97 robot contest
+   cd Domains/ForageAAAI97
+   demo
+
+For a demo of a Capture-the-flag domain
+   cd Domains/CTF
+   demo
+
+
+To run the exercises for the book
+---------------------------------
+
+Text for the exercises is in the file tb/Domains/Book/docs/index.html.
+It can be viewed using any standard web browser.
+
+To run the software for an exercise, say Exercise 2.1, type the following:
+
+   cd /yourdirectory/tb/Domains/Book
+   exercise2.1

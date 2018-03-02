@@ -1,0 +1,179 @@
+<html>
+<head>
+<title>
+RoboComm
+</title>
+</head>
+<body BGCOLOR="#FFFFFF">
+
+<FONT FACE="ariel,helvetica">
+
+<BR>
+
+<H2>TeamBots<SUP><font size=-3>TM</font></SUP> Application: RoboComm</H2>
+
+<B>Welcome</B><BR>
+<UL>
+
+Welcome to the RoboComm information page.
+This documentation is also included with the TeamBots(tm) distribution in
+RoboComm/index.html .
+
+<P>
+Jump to the <a href="../Docs/Package-EDU.gatech.cc.is.communication.html">communication Package Index</a> .
+</UL>
+
+<b>Introduction</b>
+<UL>
+RoboComm is aimed at simplifying asynchronous robot to robot communication.
+Although the system is primarily targeted for autonomous
+robot applications, there is no reason it cannot be employed
+in other applications as well.
+<P>
+The RoboComm API is implemented in
+TBSim for robot communication in simulation.  It is also
+implemented using TCP/IP sockets for communication between mobile robots.  
+To aid rapid prototyping, the APIs are implemented so that 
+a user process (usually a robot control system) cannot distinguish
+between the simulated and TCP/IP versions. 
+<P>
+Sending and receiving messages is easy.  Here is a code snippet illustrating
+how a string message can be sent to robot 2:
+
+<PRE>
+t.unicast(2, new StringMessage("hello!"));
+</PRE>
+
+The process on robot 2 receives the message using code like this:
+
+<PRE>
+new_message = r.getNextElement();
+</PRE>
+
+RoboComm is composed of a server application and client software.
+Client software is included in the EDU.gatech.cc.is.communication
+package.
+</UL>
+
+<b>Installation</b>
+<UL>
+The RoboComm application and the communication package are
+part of the 
+TeamBots(tm)
+distribution.  Please follow the installation instructions on
+the 
+<A HREF="../index.html">TeamBots(tm)</A>
+webpage.
+<P>
+Once you have installed the software, you can test it using the
+included demonstration program.  First, open a window and start the server:
+<PRE>
+java RoboComm.RoboComm
+</PRE>
+Open another window and start client number 1:
+<PRE>
+java RoboComm.Client 1
+</PRE>
+Open another window and start client number 2:
+<PRE>
+java RoboComm.Client 2
+</PRE>
+The text output in the server window should look like this:
+<PRE>
+RoboComm 0.91 (c)1998 Tucker Balch
+RoboComm.run: started on pilot.cc.gatech.edu
+Listening for connections on port 7462
+RoboComm: client 1 registered
+RoboComm: client 2 registered
+</PRE>
+There will also be several messages printed in the client windows.
+</UL>
+
+<b>The RoboComm server</b>
+<UL>
+At initialization time, each robot initiates a socket
+connection to the RoboComm server.  When a robot sends a message
+the server looks at the destination
+information, then duplicates and forwards the message to each
+intended receiver.
+<P>
+To start the server, type:
+<PRE>
+java RoboComm.RoboComm
+</PRE>
+The server will start up and wait for robots to request a connection.
+It will print informative messages when important events occur,
+like when a new robot connects, or a connection is lost.
+<P>
+Usually, you can just start the server once and forget about it.
+Note: you do not need to start the server if you only need communication
+in simulation.
+</UL>
+
+<b>Sending and receiving messages</b>
+<UL>
+The methods for communication are defined by the 
+<a href="../Docs/EDU.gatech.cc.is.communication.Transceiver.html">Transceiver</a> interface.  The interface is implemented by
+the 
+<a href="../Docs/EDU.gatech.cc.is.communication.TransceiverHard.html">TransceiverHard</a> class for real TCP/IP communication,
+and by the 
+<a href="../Docs/EDU.gatech.cc.is.abstractrobot.TransceiverSim.html">TransceiverSim</a> class for communication in simulation.
+<P>
+To communicate, the first thing to do is to create a Transceiver object:
+<PRE>
+Transceiver t = new TransceiverHard("desoto.cc.gatech.edu", 2);
+</PRE>
+This will open a connection to the RoboComm server on
+<kbd>desoto</kbd> and register the process as robot number 2.
+A thread to monitor for incoming messages is automatically started up.
+All messages transmitted to robot 2 will be handled by the thread.
+
+As messages are received, they are inserted into a
+buffer and made available for processing by the higher level software.
+To access received messages, you need to ask for a ``receive channel''
+as follows:
+<PRE>
+Enumeration messages_in = new t.getReceiveChannel();
+</PRE>
+You can allocate as many receive channels as you like; all incoming
+messages will be duplicated and inserted in a queue for each receive channel.
+You can test to see if any messages are queued by calling
+the <kbd>hasMoreElements()</kbd> method.  In this example,
+we loop while messages are available and print them:
+<PRE>
+while (messages_in.hasMoreElements())
+       System.out.print(messages.nextElement());
+</PRE>
+Sending messages is also fairly straightforward.  RoboComm supports broadcast,
+unicast, and multicast transmissions.  Here are examples of broadcast
+and unicast:
+<PRE>
+t.broadcast(message);
+t.unicast(1,message);
+</PRE>
+A broadcast call will send a copy of <kbd>message</kbd> to all
+registered processes.  Unicast just sends one message to 
+the specified robot.
+<P>
+Look at <A HREF="Client.java">Client.java</A> for a complete example
+client program.
+</UL>
+
+<b>Sending your own message types</b>
+<UL>
+RoboComm takes advantage of Java's serialization capability to
+enable the transmission of ANY serializable Java object.
+Several useful message types are already defined (e.g. LongMessage
+for sending long integers), but you may
+need to create your own if you need to send other types of
+data.  To do this, just extend the 
+<a href="../Docs/EDU.gatech.cc.is.communication.Message.html">Message</a> class.
+The Message class is really just a wrapper containing information about
+the message destination.  
+Take a look at some of the other message types defined in the
+<a href="../Docs/Package-EDU.gatech.cc.is.communication.html">communication</a> for inspiration.
+<P>
+Good luck!
+</UL>
+</body>
+</html>

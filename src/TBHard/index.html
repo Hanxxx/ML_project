@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>
+TBHard
+</title>
+</head>
+<body BGCOLOR="#FFFFFF">
+
+<FONT FACE="ariel,helvetica">
+
+<BR>
+
+<H2>TeamBots<SUP><font size=-3>TM</font></SUP> Application: TBHard</H2>
+
+<b>Welcome</b><BR>
+<UL>
+
+Welcome to the TBHard information page.
+This documentation is also included with the TeamBots(tm) distribution in
+../index.html
+<P>
+Please see
+the <A HREF="../Docs/copyright.html">
+copyright</A> for detailed copyright information.
+<P>
+TBHard is used to run robot control systems that use 
+the 
+<A HREF="../../EDU/gatech/cc/is/docs/Package-EDU.gatech.cc.is.abstractrobot.html">abstractrobots</A>
+API on mobile robots.  
+The same control systems can be run on in simulation with the
+<A HREF="../TBSim/index.html">TBSim</A>
+application.
+</UL>
+
+<b>Running TBHard</b><BR>
+<UL>
+
+This documentation is rather skimpy right now.  We will be expanding
+it in the coming months.
+<P>
+First, ensure your CLASSPATH environment variable points to all 
+the right places.  Consult the 
+the "How to Install" section of the
+<A HREF="../index.html">TeamBots(tm)</A>
+documentation for details.
+<P>
+Now type the command line to start things running:
+<PRE>java TBHard.TBHard [control system] [time] [x] [y] [N|C]</PRE>
+Here is an example:
+<PRE>java TBHard forage1 120 0 0 C</PRE>
+
+This will run the forage1 control system for 120 seconds, and start
+the robot at (0,0).  The last argument indicates whether to run the
+code on a N(omad) or a C(ye).
+</UL>
+</body>
+</html>

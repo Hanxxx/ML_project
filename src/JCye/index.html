@@ -1,0 +1,403 @@
+<html>
+<head>
+<title>
+RoboComm
+</title>
+</head>
+<body BGCOLOR="#FFFFFF">
+
+<FONT FACE="ariel,helvetica">
+
+<BR>
+
+<H2>TeamBots<SUP><font size=-3>TM</font></SUP> Application: JCye</H2>
+
+<B>Welcome</B><BR>
+<UL>
+
+Welcome to the JCye information page.
+This documentation is also included with the TeamBots and
+JCye distribution in JCye/index.html .
+
+<P>
+<UL>
+<LI>Jump to the <a href="../../Docs/EDU.cmu.cs.coral.cye.JCyeSrv.html">
+JCyeSrv API documentation</a> .
+<LI><a href="../JCye.zip">Download</A> the
+latest JCye-only release (Jan 7, 2000).
+<LI><a href="../TeamBots.zip">Download</A> the
+entire TeamBots release (includes JCye).
+</UL>
+<P>
+In this document:
+<UL>
+        <LI><A HREF="#INTRODUCTION">Introduction</A>
+        <LI><A HREF="#INSTALLING">Installing</A>
+        <LI><A HREF="#GETTING">Using JCye</A>
+        <LI><A HREF="#HORIZON">On the horizon</A>
+        <LI><A HREF="#BUGS">Bugs</A>
+        <LI><A HREF="#TROUBLESHOOTING">Troubleshooting</A>
+        <LI><A HREF="#HELP">Getting Help</A>
+        <LI><A HREF="#WEBSITE">Website</A>
+</UL>
+<P>
+
+
+</UL>
+
+<A NAME="INTRODUCTION"></A>
+<b>Introduction</b>
+<UL>
+We have developed open source Java software for controlling a
+<A HREF="http://www.personalrobots.com" target="_top">Cye</A> robot.
+The software release is composed of two parts, the
+EDU.cmu.cs.coral.cye package (a Java library) and several
+example programs that use it.
+This software was developed at CMU as part of the
+<A HREF="http://www.cs.cmu.edu/~coral/minnow" target="_top">Minnow</A> project
+by
+<A HREF="http://www.ri.cmu.edu/people/chemel_brian_ext.html" target="_top">Brian Chemel</A>.
+<P>
+The software has been tested on Linux and Windows 9x machines. 
+We expect it to work on all of these platforms:
+<P>
+<UL>
+	<LI>AIX
+	<LI>HP UX
+	<LI>OS2
+	<LI>Solaris SPARC
+	<LI>Solaris x86
+	<LI>BSD
+	<LI>Irix
+	<LI>Linux
+	<LI>MacOS
+	<LI>Windows 9x
+	<LI>Windows NT
+</UL>
+
+</UL>
+
+<A NAME="INSTALLING"></A>
+<b>Installing</b>
+<UL>
+Follow these instructions
+to install the cye package and JCye applications on your computer.
+You can follow these same instructions to install the entire 
+TeamBots distribution as well.
+<P>
+<OL>
+<LI><B>Required software:</B> make sure you have
+        <A HREF="http://java.sun.com/products/jdk/1.1/index.html">
+        <b>Java 1.1</b></a>
+        or later installed on your computer.
+        The distribution will not run with earlier versions.
+        If you have Java, but aren't sure of the version, type
+        "java -version".  You also need
+        <b><A HREF="http://www.cdrom.com/pub/infozip/UnZip.html">unzip</b></A>
+        to unpack the distribution.
+        You will need <A HREF="http://www.gnu.org"><b>gmake</b></A>
+        if you want to modify and recompile using the included makefiles.
+<P>
+<LI><B>Make a directory for the distribution (we'll call it tb).</B>
+<P>
+<LI><B>Put the distribution (<A HREF="../../JCye.zip">JCye.zip</A> or
+<A HREF="../../TeamBots.zip">TeamBots.zip</A>) in the directory.</B><P>
+<LI><B>unzip JCye.zip</B> (or TeamBots.zip).  
+<P>
+<LI><B>Set your CLASSPATH environment variable</B> to point to
+        the directory where you unzipped the distribution and
+	to the libraries that implement serial communication.
+        So, for example, if you installed the distribution in
+        /home/you/java and you use csh you would set CLASSPATH with
+        the following commands:
+        <P>
+        <PRE>
+	setenv CLASSPATH /home/you/tb:.
+	setenv CLASSPATH ${CLASSPATH}:/home/you/tb/lib/collections.jar
+	setenv CLASSPATH ${CLASSPATH}:/home/you/tb/lib/Serialio/Serialio.jar
+	setenv CLASSPATH ${CLASSPATH}:/home/you/tb/lib/Serialio/jspComm.jar
+        </PRE>
+	Be sure the include the ".", it is important.
+        <P>
+        Other shells and/or operating systems use similar commands
+        to set the CLASSPATH.
+	In Windows you can set the CLASSPATH by editing your
+	C:\AUTOEXEC.BAT file as follows:
+	<P>
+        <PRE>
+	set CLASSPATH=C:\tb;.;C:\tb\lib\collections.jar;C:\tb\lib\Serialio\Serialio.jar;\tb\lib\Serialio\jspComm.jar
+        </PRE>
+	If you are using a JVM other than Sun's you may need to use some
+	other mechanism to tell it about your CLASSPATH.  
+<P>
+<LI><B>Set up the serial libraries.</B> 
+	To access your computer's serial port
+	JCye uses a commerial machine independent serial I/O package.
+	This package is included with JCye and TeamBots
+	in the the Serialio subdirectory.
+	Here are instructions for
+	each of the OSs we have tested on:
+	<P>
+	<UL>
+		<LI><b>Windows 9x:</B> copy the contents of Serialio\Lib\Win32
+			to the Windows\System directory.
+	
+		<LI><b>Windows NT:</B> copy the contents of Serialio\Lib\Win32
+			to the Winnt\System32 directory.
+
+		<LI><b>Linux:</B> setenv LD_LIBRARY_PATH=/home/you/tb/lib/Serialio/Lib/Linux
+
+		<LI><b>Other OS:</B> consult the Serialio 
+			<A HREF="../../lib/Serialio/jspInstall.html">installation</A>
+			notes.  Please let us know of your success so we
+			add a description here.
+	</UL>
+<P>
+<LI><B>Try some of the JCye programs.</B>  They are in the JCye directory.
+	See instructions on "Using JCye" below for more info.
+</OL>
+</UL>
+
+<A NAME="GETTING"></A>
+<b>Using JCye</b>
+<UL>
+First, download and install the distribution (instructions above).
+If you are using Windows, we suggest you first make sure your Cye works 
+properly with the Map-N-Zap software provided by Probotics.
+That will ensure you have all of the physical and radio connections
+working properly.
+<P>
+To start experimenting with
+JCye, edit one of the programs; JCyePWM.java is a good start.
+All user-level commands are implemented by the JCyeSrv class, that
+is your interface to control of the robot.
+Look for the code at the begining that establishes
+a connection to the robot:
+
+<UL>
+<PRE>
+/*--- initiate connection to robot ---*/
+JCyeSrv Srv = new JCyeSrv(
+       "COM1",                // the device to communicate with
+       19200,                 // baud rate (9600 or 19200)
+       JCyeComm.NEW_RADIO,    // connection is WIRED, NEW_RADIO or OLD_RADIO
+       JCyeComm.BLACK_ROBOT); // robot ID, depends on color
+</PRE>
+</UL>
+
+The example above would be typical for a Windows configuration
+with a recently purchased robot.
+<P>
+You need to edit this call to reflect the configuration of your
+robot and computer.  The first argument is the name of the
+serial line device your robot is plugged into on your computer.
+/dev/ttyS0 or /dev/ttyS1 is typical for a Linux box.  
+COM1 or COM2 (no colon) would be standard on a Windows machine.
+<P>
+The second argument sets the baud rate for communication.
+All Cyes now being sold (on or after December 1999) use 19200.
+<P>
+The third argument depends on whether your Cye is wired directly
+to your computer (unusual) or if it uses a radio connection (standard).
+Use JCyeComm.WIRED, JCyeComm.NEW_RADIO or JCyeComm.OLD_RADIO 
+as appropriate.
+For RADIO connections several pauses are inserted into the transmitt
+and receive procedures to ensure the radios have time to warm up.
+<P>
+Finally you need to set the ID for your robot.  This depends on
+the color of your robot, as follows:
+JCyeComm.ORIGINAL_ROBOT (for older robots using 9600 baud radios),
+JCyeComm.BLACK_ROBOT (for newer black robots),
+JCyeComm.ORANGE_ROBOT (for newer orange robots),
+JCyeComm.YELLOW_ROBOT (for newer yellow robots), or
+JCyeComm.CHROME_ROBOT (for newer chrome robots).
+
+<P>
+You are now ready to compile and test the program:
+<UL>
+<PRE>
+javac JCyePWM.java
+java JCyePWM 100 100
+</PRE>
+</UL>
+
+If everything worked, your robot should beep and start moving
+slowly.  You should also see text like this:
+
+<UL>
+<PRE>
+java JCyePWM 100 100
+Serialio.SerialPortLocal: version 6.6b
+Copyright (c) 1996,1999 Solutions Consulting, All Rights Reserved.
+SerialPort class loaded: jspLux86
+Last X: 483.94221541452254
+Last Y: -37.45327560447702
+Last H: 5.459871370376744
+Last B: 11.54224
+
+Last X: 484.59785262422895
+Last Y: -38.1089128141834
+Last H: 5.45445483131883
+Last B: 11.58062
+
+Last X: 484.76176192665554
+Last Y: -38.354776767823296
+Last H: 5.45445483131883
+Last B: 11.59981
+</PRE>
+</UL>
+
+X and Y are the current location of the robot, H is the heading and
+B is the battery voltage.
+Take a look at the other example programs in the JCye directory,
+and the <a href="../Docs/Package-EDU.cmu.cs.coral.cye.html">cye package
+documentation</a>.  Pay particular attention to the JCyeSrv class.
+Enjoy.
+</UL>
+
+<A NAME="HORIZON"></A>
+<b>What's on the horizon</b>
+<UL>
+You might be interested in our TeamBots
+<A HREF="../../Domains/Cye/index.html">Cye simulation</A>.
+The API to this simulated robot is slightly different from the
+interface to the real Cye robot provided in the cye package.
+Our next project is to implement the TeamBots API for the real
+cye robot.  This way the same code can run in simulation and on
+mobile robots.
+</UL>
+
+
+<A NAME="BUGS"></A>
+<B>Bugs</B>
+<UL>
+	<LI><B>Windows</B>
+		<UL>
+			<LI> Error message "Sent only 16 of 17 bytes"
+				is printed out occasionally.  For some
+				reason the serial code on Windows
+				boxes reports this problem occasionally.
+				We don't yet know what causes this or if it 
+				is a significant issue.
+		</UL>
+	<LI><B>Linux</B>
+		<UL>
+		No bugs reported yet.
+		</UL>
+</UL>
+			
+<A NAME="TROUBLESHOOTING"></A>
+<B>Troubleshooting</B>
+<UL>
+        Before attempting to troubleshoot TeamBots, make sure
+        your computer is turned on.  If that does not solve the
+        problem, try this set of common solutions:
+<OL>
+
+<P>
+<LI>If you get the error message:
+<PRE>
+       Can't find class forage
+</PRE>
+or something similar when you try to run the demos, your
+CLASSPATH probably does not include "."
+Try Step 5 of the installation again.
+<P>
+<LI>If you get the error message:
+<PRE>
+       java.lang.NoClassDefFoundError: TBSim/SimulationCanvas
+               at TBSim.TBSim.<init>(TBSim.java:79)
+               at TBSim.TBSim.main(TBSim.java:199)
+</PRE>
+Your CLASSPATH may not point properly
+to the /home/you/java directory.
+Try Step 5 of the installation again.
+<P>
+<LI>If you get the error message:
+<PRE>
+       error:  zipfile probably corrupt
+</Pre>
+        while trying to unzip the distribution, you probably 
+        either got a bad copy while downloading, or your version
+        of unzip is too old.  
+        Unzip v5.12 works properly
+        while v5.1 has been known to complain, but still
+        unpack the distribution.
+        The distribution was compressed with Zip v2.1, please let me
+        know if you have this problem.
+<P>
+<LI>If you get the error message:
+<PRE>
+       Can't find class TBSim.TBSim
+</PRE>
+then your CLASSPATH probably doesn't point properly to the
+/home/you/java directory.  Try Step 5 of the installation again.
+
+<P>
+<LI>If you get the error message:
+<PRE>
+       java.lang.NoClassDefFoundError: TBSim/SimulationCanvas
+               at TBSim.TBSim.<init>(TBSim.java:79)
+               at TBSim.TBSim.main(TBSim.java:199)
+</PRE>
+Your CLASSPATH may not point properly
+to the /home/you/java directory.
+Try Step 5 of the installation again.
+<P>
+This might also be caused by a corrupted download
+or unzip operation.  Try getting a new copy of the distribution from
+the webpage or just unzipping again.  You may have unzipped with the
+"-a" option, try it without.
+
+<P>
+<LI>If you get the error message:
+<PRE>
+       Unable to initialize threads: cannot find class java/lang/Thread
+</PRE>
+then you are probably running Java 1.0.2 instead of Java 1.1.  <BR>
+You can check that by typing "java -version".
+
+<P>
+<LI>If you get the error message:
+<PRE>
+       ./demo: java: not found
+</PRE>
+make sure java is in your PATH somewhere, and that Java 1.1 is installed
+on your system. 
+
+<P>
+<LI>If the program runs but the source code looks like gibberish,
+try unzipping again using the -a option (Step 4).  This option may
+not be available on older versions of unzip or on WinZip.  I suggest
+you get the
+<b><A HREF="http://www.cdrom.com/pub/infozip/UnZip.html">real unzip</b></A>.
+
+<P>
+<LI>Finally, try
+typing the contents of the demo file directly as a command line:
+<PRE>
+       java TBSim robocup.dsc 511 300
+</PRE>
+</OL>
+</UL>
+
+<A NAME="HELP"></A>
+<B>Getting Help</B>
+<UL>
+If you have any problems, please checkout the
+<A HREF="http://www.coral.cs.cmu.edu/mailman/listinfo/teambots-developer">
+teambots-developer</A> email list archives.  If you don't find
+your answer there, subscribe and post a message.
+Another good resource is Probotic's 
+<A HREF="http://www.personalrobots.com/community/forum/">forum</A>.
+<P>
+</UL>
+<A NAME="WEBSITE"></A>
+<B>Website</B>
+<UL>
+        The official TeamBots website address is
+<A HREF="http://www.teambots.org">http://www.teambots.org</A>.
+</UL>
+
+</body>
+</html>
